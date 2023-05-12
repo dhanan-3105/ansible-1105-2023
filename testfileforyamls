@@ -45,3 +45,26 @@ compartments:
   handlers:
   - name: restart apache
     service: name=httpd state=restarted
+    
+---  
+- name: read file on host
+  hosts: all
+  remote_user: opc
+  vars:
+   contents: " "
+  tasks:
+   - name: Read the file
+     command: cat /home/opc/.ssh/authorized_keys
+     register: x
+
+   - name: print file
+     debug:
+      msg: "the content of file is {{ x }}"
+
+   - name: write a file
+     file: path=/home/opc/configfiles state=touch
+
+
+   - name: closure
+     debug:
+        msg : "file created in {{inventory_hostname}}"
