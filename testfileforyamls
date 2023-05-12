@@ -10,3 +10,14 @@ regions:
 compartments:
  - compartment_ocid: "Your-compartment-id"
    fetch_hosts_from_subcompartments: false
+
+
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name : create file
+      file: path=/tmp/testfile state=touch
+    - name : print
+      debug:
+       msg: file created
