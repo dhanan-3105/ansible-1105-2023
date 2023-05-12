@@ -21,3 +21,15 @@ compartments:
     - name : print
       debug:
        msg: file created
+
+
+---
+ - hosts: localhost
+   become: true
+   tasks:
+   - name: install packages
+     yum: name={{item}} state=latest
+     loop:
+      - openssl-devel
+      - git
+      - podman
