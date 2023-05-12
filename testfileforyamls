@@ -149,3 +149,18 @@ compartments:
       command : podman rm -f testnginx
 
 
+- name : List summary
+  collections:
+    - oracle.oci
+  connection: local
+  hosts: localhost
+  tasks:
+   - name: List availability domains
+     oci_identity_availability_domain_facts:
+     # required
+       compartment_id: "ocid1.tenancy.oc1..aaaaaaaahha7foqefrt7brld3bs3bijc4yu3jxrqoiaocgpkbvkpgilzi4da"
+     register: result
+
+   - name : print ADs
+     debug:
+       msg: {{ result }}
